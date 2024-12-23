@@ -1,14 +1,14 @@
 package io.jarcak.ds.list;
 
-public class SinglyLinkedList<E extends Comparable<E>> implements LinkedList<E>{
+public class SinglyLinkedList<E extends Comparable<E>> implements LinkedList<E> {
 
-    private static class Node<E extends Comparable<E>>{
+    private static class Node<E extends Comparable<E>> {
 
-        private E data;
+        private final E data;
 
         private Node<E> next;
 
-        private Node(E data, Node<E> next){
+        private Node(E data, Node<E> next) {
             this.data = data;
             this.next = next;
         }
@@ -32,35 +32,75 @@ public class SinglyLinkedList<E extends Comparable<E>> implements LinkedList<E>{
 
     @Override
     public E first() {
-        if(isEmpty())
+        if (isEmpty())
             return null;
         return head.data;
     }
 
     @Override
     public E last() {
-        if(isEmpty())
+        if (isEmpty())
             return null;
         return tail.data;
     }
 
     @Override
     public void addFirst(E data) {
-
+        Node<E> node = new Node<>(data, head);
+        if (isEmpty()) {
+            tail = node;
+        }
+        head = node;
+        size++;
     }
 
     @Override
     public void addLast(E data) {
-
+        Node<E> node = new Node<>(data, null);
+        if (isEmpty()) {
+            head = node;
+        } else {
+            tail.next = node;
+        }
+        tail = node;
+        size++;
     }
 
     @Override
     public E removeFirst() {
-        return null;
+        if (isEmpty())
+            return null;
+
+        E data = head.data;
+        head = head.next;
+
+        if (size == 1) {
+            tail = null;
+        }
+        size--;
+        return data;
     }
 
     @Override
     public E removeLast() {
-        return null;
+
+        if (isEmpty())
+            return null;
+
+        E data = tail.data;
+
+        if (size == 1) {
+            head = tail = null;
+        } else {
+            Node<E> node = head;
+            while (node.next.next != null) {
+                node = node.next;
+            }
+
+            node.next = null;
+            tail = node;
+        }
+        size--;
+        return data;
     }
 }
