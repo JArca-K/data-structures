@@ -13,7 +13,13 @@ public class LinkedListTest {
 
         linkedList = new SinglyLinkedList<>();
         testLinkedList(linkedList);
+    }
 
+    @Test
+    public void GivenDoublyLinkedList_TestAllScenarios(){
+
+        linkedList = new DoublyLinkedList<>();
+        testLinkedList(linkedList);
     }
 
     private void testLinkedList(LinkedList<Integer> linkedList){
